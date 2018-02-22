@@ -6,6 +6,14 @@ LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
       version="0.1" \
       description="Google Cloud Pub/Sub Emulator"
 
+ENV PROJECT_ID=project-id
+ENV TOPICS="topic-1 topic-2 topic-3 topic-4 topic-5 topic-6 topic-7"
+ENV SUB_NAME=TOPIC-sub
+ENV SUB_NAME2=
+ENV ACK_DEADLINE=10
+
+COPY entrypoint.sh /
+
 ## install openjdk, copied from https://github.com/docker-library/openjdk/blob/master/8-jre/alpine/Dockerfile
 
 # Default to UTF-8 file.encoding
@@ -32,10 +40,12 @@ RUN set -x \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ] \
 ## finish installing openjdk
     && gcloud components install beta -q \
-    && gcloud components install pubsub-emulator -q
+    && gcloud components install pubsub-emulator -q \
+    && chmod u+x /entrypoint.sh
 
 EXPOSE 8538
 
 VOLUME /data
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["gcloud", "beta", "emulators", "pubsub", "start", "--host-port=0.0.0.0:8538", "--data-dir=/data"]
