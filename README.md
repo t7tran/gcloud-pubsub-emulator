@@ -1,6 +1,6 @@
-[![Docker Automated Build](https://img.shields.io/docker/automated/bigtruedata/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/bigtruedata/gcloud-pubsub-emulator/) [![Docker Build Status](https://img.shields.io/docker/build/bigtruedata/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/bigtruedata/gcloud-pubsub-emulator/builds/) [![Docker Pulls](https://img.shields.io/docker/pulls/bigtruedata/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/bigtruedata/gcloud-pubsub-emulator/) [![Docker Stars](https://img.shields.io/docker/stars/bigtruedata/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/bigtruedata/gcloud-pubsub-emulator/) [![License](https://img.shields.io/github/license/bigtruedata/docker-gcloud-pubsub-emulator.svg)](https://raw.githubusercontent.com/bigtruedata/docker-gcloud-pubsub-emulator/blob/master/LICENSE.md)
+[![Docker Automated Build](https://img.shields.io/docker/automated/coolersport/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/coolersport/gcloud-pubsub-emulator/) [![Docker Build Status](https://img.shields.io/docker/build/coolersport/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/coolersport/gcloud-pubsub-emulator/builds/) [![Docker Pulls](https://img.shields.io/docker/pulls/coolersport/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/coolersport/gcloud-pubsub-emulator/) [![Docker Stars](https://img.shields.io/docker/stars/coolersport/gcloud-pubsub-emulator.svg)](https://hub.docker.com/r/coolersport/gcloud-pubsub-emulator/) [![License](https://img.shields.io/github/license/coolersport/docker-gcloud-pubsub-emulator.svg)](https://raw.githubusercontent.com/coolersport/docker-gcloud-pubsub-emulator/blob/master/LICENSE.md)
 
-# [Google Cloud Pub/Sub Emulator Image](https://hub.docker.com/r/bigtruedata/gcloud-pubsub-emulator/)
+# [Google Cloud Pub/Sub Emulator Image](https://hub.docker.com/r/coolersport/gcloud-pubsub-emulator/)
 
 [*Cloud Pub/Sub*](https://cloud.google.com/pubsub/) is a global service for real-time and reliable messaging and streaming data
 
@@ -10,7 +10,7 @@ This image provides a dockerized version of the *Google Cloud Pub/Sub Emulator*.
 The following shell statement show the most simple execution of the provided image. It will execute the *Pub/Sub Emulator* that will listen on port 8538.
 
 ```sh
-docker run --rm --tty --interactive --publish 8538:8538 bigtruedata/gcloud-pubsub-emulator
+docker run --rm --tty --interactive --publish 8538:8538 coolersport/gcloud-pubsub-emulator
 ```
 
 The image is much more useful when it is used in a CD/CI automated environment. The following example shows how to configure the *Pub/Sub Emulator* to be used in a [*Wercker*](http://www.wercker.com/) development pipeline.
@@ -21,7 +21,7 @@ box: python:3.5
 dev:
   services:
     - name: pubsub
-      id: bigtruedata/gcloud-pubsub-emulator
+      id: coolersport/gcloud-pubsub-emulator
       cmd: start --host-port 0.0.0.0:8538
 
   steps:
@@ -42,7 +42,7 @@ The most important configuration parameters of the *Pub/Sub emulator* image are 
 The following example shows how to start the *Pub/Sub emulator* to listen on `192.168.1.3:12345` and to store its files in the `/pubsub-data` directory.
 
 ```sh
-docker run --rm --tty --interactive bigtruedata/gcloud-pubsub-emulator start --host-port=192.168.1.3:12345 --data-dir=/pubsub-data
+docker run --rm --tty --interactive coolersport/gcloud-pubsub-emulator start --host-port=192.168.1.3:12345 --data-dir=/pubsub-data
 ```
 
 **NOTE**: Wercker's documentation can be checked online on [Wercker Documentation Website](http://devcenter.wercker.com/docs/home)
