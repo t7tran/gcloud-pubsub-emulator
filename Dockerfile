@@ -39,7 +39,7 @@ RUN { \
     && gcloud components install beta -q \
     && gcloud components install pubsub-emulator -q \
     && chmod u+x /entrypoint.sh /usr/local/bin/* \
-    && apk add --no-cache jq
+    && apk add --no-cache jq coreutils
 
 EXPOSE 8538
 

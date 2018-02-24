@@ -7,7 +7,7 @@ if [ "$#" -ne 2 ]; then
 fi
 
 TOPIC=$1
-DATA=`echo $2 | base64`
+DATA=`echo $2 | base64 -w0`
 JSON='{"messages":[{"data":"DATA"}]}'
 
 curl -fsSLX POST \
