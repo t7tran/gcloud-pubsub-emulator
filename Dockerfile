@@ -8,8 +8,7 @@ LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
 
 ENV PROJECT_ID=project-id \
     TOPICS="topic-1 topic-2 topic-3 topic-4 topic-5 topic-6 topic-7" \
-    SUB_NAME=TOPIC-sub \
-    SUB_NAME2= \
+    SUB_NAMES=TOPIC-sub \
     ACK_DEADLINE=10
 
 COPY rootfs /
