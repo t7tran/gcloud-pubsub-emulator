@@ -1,9 +1,10 @@
 #!/bin/bash
 
 if [ "$#" -lt 1 ]; then
-        echo 'Syntax: pull <subscription>'
-        echo '     or pull <subscription> <number-of-messages>'
-        exit 1
+	echo 'Pull one or more messages from a subscription.'
+	echo 'Syntax: pull <subscription>'
+	echo '     or pull <subscription> <number-of-messages>'
+	exit 1
 fi
 
 SUB=$1

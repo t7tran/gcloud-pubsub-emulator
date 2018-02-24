@@ -1,8 +1,9 @@
 #!/bin/bash
 
 if [ "$#" -ne 2 ]; then
-        echo 'Syntax: publish <topic> <data>'
-        exit 1
+	echo 'Publish a piece of data (should be quoted/escaped properly) to a topic.'
+	echo 'Syntax: publish <topic> <data>'
+	exit 1
 fi
 
 TOPIC=$1

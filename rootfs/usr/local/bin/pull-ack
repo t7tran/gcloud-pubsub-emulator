@@ -1,9 +1,10 @@
 #!/bin/bash
 
 if [ "$#" -lt 1 ]; then
-        echo 'Syntax: pull-ack <subscription>'
-        echo '     or pull-ack <subscription> <number-of-messages>'
-        exit 1
+	echo 'Pull one or more messages from a subscription and acknowledge them upon receipt.'
+	echo 'Syntax: pull-ack <subscription>'
+	echo '     or pull-ack <subscription> <number-of-messages>'
+	exit 1
 fi
 
 SUB=$1

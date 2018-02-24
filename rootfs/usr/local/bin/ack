@@ -1,8 +1,9 @@
 #!/bin/bash
 
 if [ "$#" -ne 2 ]; then
-        echo 'Syntax: ack <subscription> <ackId>'
-        exit 1
+	echo 'Acknowledge a message using ackId from previous pull.'
+	echo 'Syntax: ack <subscription> <ackId>'
+	exit 1
 fi
 
 SUB=$1
