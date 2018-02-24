@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+        echo 'Syntax: ack <subscription> <ackId>'
+        exit 1
+fi
+
+SUB=$1
+ACKID=$2
+JSON='{"ackIds":["ACKID"]}'
+
+curl -fsSLX POST \
+  http://localhost:8538/v1/projects/$PROJECT_ID/subscriptions/$SUB:acknowledge \
+  -H 'Content-Type: application/json' \
+  -d ${JSON/ACKID/$ACKID}

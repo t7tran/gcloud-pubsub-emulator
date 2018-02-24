@@ -5,9 +5,9 @@ set -e
 while ! nc -z localhost 8538; do sleep 0.5; done && \
 for topic in $TOPICS;do \
   echo "Creating topic $topic"; \
-  curl -X PUT http://localhost:8538/v1/projects/$PROJECT_ID/topics/$topic; \
+  curl -fsSLX PUT http://localhost:8538/v1/projects/$PROJECT_ID/topics/$topic; \
   for sub in $SUB_NAME $SUB_NAME2;do \
-    curl -X PUT \
+    curl -fsSLX PUT \
       http://localhost:8538/v1/projects/$PROJECT_ID/subscriptions/${sub/TOPIC/$topic} \
       -H 'Content-Type: application/json' \
       -d "{\"topic\":\"projects/$PROJECT_ID/topics/$topic\",\"ackDeadlineSeconds\":$ACK_DEADLINE}"; \

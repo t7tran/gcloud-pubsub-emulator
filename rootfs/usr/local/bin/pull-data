@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Pulling new messages..."
+
+COUNTER=1
+for line in `pull $@ | jq -r '.receivedMessages[]|.message.messageId+"|"+.message.data'`; do
+        IFS='|' read -a parts <<< "$line"
+        echo "Message $COUNTER (id=${parts[0]}): "`echo ${parts[1]} | base64 -d`
+        COUNTER=$[$COUNTER +1]
+done

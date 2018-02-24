@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ "$#" -lt 1 ]; then
+        echo 'Syntax: pull-ack <subscription>'
+        echo '     or pull-ack <subscription> <number-of-messages>'
+        exit 1
+fi
+
+SUB=$1
+MSG=$2
+
+echo "Pulling new messages..."
+
+LINES=`pull $SUB $MSG | jq -r  '.receivedMessages[]|.ackId+"|"+.message.messageId+"|"+.message.data'`
+
+if [ -z "$LINES" ]; then
+        echo "No message found";
+else
+	TOTAL=`echo $LINES | wc -w`
+	echo "Pulled $TOTAL message(s)"
+	for line in $LINES; do
+		IFS='|' read -a parts <<< "$line"
+		echo "Acknowledging message id ${parts[1]}: "`echo ${parts[2]} | base64 -d`
+		ack $SUB ${parts[0]}
+	done
+fi

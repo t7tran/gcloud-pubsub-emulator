@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+        echo 'Syntax: publish <topic> <data>'
+        exit 1
+fi
+
+TOPIC=$1
+DATA=`echo $2 | base64`
+JSON='{"messages":[{"data":"DATA"}]}'
+
+curl -fsSLX POST \
+  http://localhost:8538/v1/projects/$PROJECT_ID/topics/$TOPIC:publish \
+  -H 'Content-Type: application/json' \
+  -d ${JSON/DATA/$DATA}
