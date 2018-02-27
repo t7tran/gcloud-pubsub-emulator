@@ -13,4 +13,4 @@ JSON='{"ackIds":["ACKID"]}'
 curl -fsSLX POST \
   http://localhost:8538/v1/projects/$PROJECT_ID/subscriptions/$SUB:acknowledge \
   -H 'Content-Type: application/json' \
-  -d ${JSON/ACKID/$ACKID}
+  -d ${JSON/ACKID/$ACKID} | jq '.'

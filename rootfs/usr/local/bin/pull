@@ -15,4 +15,4 @@ JSON='{"maxMessages":MSG,"returnImmediately":false}'
 curl -fsSLX POST \
   http://localhost:8538/v1/projects/$PROJECT_ID/subscriptions/$SUB:pull \
   -H 'Content-Type: application/json' \
-  -d ${JSON/MSG/$MSG}
+  -d ${JSON/MSG/$MSG} | jq '.'
