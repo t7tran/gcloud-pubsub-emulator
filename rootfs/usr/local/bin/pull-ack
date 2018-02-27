@@ -12,7 +12,7 @@ MSG=$2
 
 echo "Pulling new messages..."
 
-LINES=`pull $SUB $MSG | jq -r  '.receivedMessages[]|.ackId+"|"+.message.messageId+"|"+.message.data'`
+LINES=`pull $SUB $MSG | jq -r  '.receivedMessages[]|.ackId+"|"+.message.messageId+"|"+.message.data+"|"+(.message.attributes | @base64)'`
 
 if [ -z "$LINES" ]; then
         echo "No message found";
@@ -21,7 +21,10 @@ else
 	echo "Pulled $TOTAL message(s)"
 	for line in $LINES; do
 		IFS='|' read -a parts <<< "$line"
+		echo '-----------------------------'
 		echo "Acknowledging message id ${parts[1]}: "`echo ${parts[2]} | base64 -d`
+		echo "with attributes:"          
+		echo ${parts[3]} | base64 -d | jq
 		ack $SUB ${parts[0]}
 	done
 fi
