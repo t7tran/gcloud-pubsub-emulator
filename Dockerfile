@@ -1,7 +1,7 @@
 # Google Cloud Pub/Sub Documentation
 # https://cloud.google.com/pubsub/docs/
 
-FROM google/cloud-sdk:alpine
+FROM google/cloud-sdk:342.0.0-alpine
 LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
       version="0.1" \
       description="Google Cloud Pub/Sub Emulator"
@@ -20,7 +20,7 @@ ENV LANG=C.UTF-8 \
     JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre \
     PATH=$PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin \
     JAVA_VERSION=8u151 \
-    JAVA_ALPINE_VERSION=8.151.12-r0
+    JAVA_ALPINE_VERSION=8.275.01-r0
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
 # based on whether the JDK or only the JRE is installed
