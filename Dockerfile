@@ -1,7 +1,7 @@
 # Google Cloud Pub/Sub Documentation
 # https://cloud.google.com/pubsub/docs/
 
-FROM google/cloud-sdk:342.0.0-alpine
+FROM google/cloud-sdk:354.0.0-alpine
 LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
       version="0.1" \
       description="Google Cloud Pub/Sub Emulator"
@@ -19,7 +19,7 @@ COPY rootfs /
 ENV LANG=C.UTF-8 \
     JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre \
     PATH=$PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin \
-    JAVA_VERSION=8u151 \
+    JAVA_VERSION=8u272 \
     JAVA_ALPINE_VERSION=8.275.01-r0
 
 # add a simple script that can auto-detect the appropriate JAVA_HOME value
@@ -36,14 +36,29 @@ RUN { \
 		openjdk8-jre="$JAVA_ALPINE_VERSION" \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ] \
 ## finish installing openjdk
-    && gcloud components install beta -q \
-    && gcloud components install pubsub-emulator -q \
-    && chmod u+x /entrypoint.sh /usr/local/bin/* \
-    && apk add --no-cache jq coreutils
+    && \
+    gcloud components install beta -q && \
+    gcloud components install pubsub-emulator -q && \
+    chmod +x /entrypoint.sh /usr/local/bin/* && \
+    apk add --no-cache jq coreutils dpkg && \
+    # install gosu
+    dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
+    curl -fsSL "https://github.com/tianon/gosu/releases/download/1.14/gosu-$dpkgArch" -o /usr/local/bin/gosu && \
+    chmod +x /usr/local/bin/gosu && \
+    gosu nobody true && \
+    # complete gosu
+    gosu cloudsdk gcloud config set core/disable_usage_reporting true && \
+    gosu cloudsdk gcloud config set component_manager/disable_update_check true && \
+    gosu cloudsdk gcloud config set metrics/environment github_docker_image && \
+    mkdir /data && \
+    chmod 777 /data && \
+    # clean up
+    apk del dpkg && \
+    rm -rf /apk /tmp/* /var/cache/apk/*
+
+USER cloudsdk
 
 EXPOSE 8538
 
-VOLUME /data
-
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["gcloud", "beta", "emulators", "pubsub", "start", "--host-port=0.0.0.0:8538", "--data-dir=/data"]
+CMD []
