@@ -1,7 +1,7 @@
 # Google Cloud Pub/Sub Documentation
 # https://cloud.google.com/pubsub/docs/
 
-FROM google/cloud-sdk:413.0.0-alpine
+FROM google/cloud-sdk:422.0.0-alpine
 LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
       version="0.1" \
       description="Google Cloud Pub/Sub Emulator"
