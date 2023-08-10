@@ -1,7 +1,7 @@
 # Google Cloud Pub/Sub Documentation
 # https://cloud.google.com/pubsub/docs/
 
-FROM google/cloud-sdk:432.0.0-alpine
+FROM google/cloud-sdk:442.0.0-alpine
 LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
       version="0.1" \
       description="Google Cloud Pub/Sub Emulator"
@@ -30,6 +30,7 @@ RUN { \
 	} > /usr/local/bin/docker-java-home \
 	&& chmod +x /usr/local/bin/docker-java-home \
     && set -x \
+	&& apk upgrade \
 	&& apk add --no-cache openjdk8-jre \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ] \
 ## finish installing openjdk
