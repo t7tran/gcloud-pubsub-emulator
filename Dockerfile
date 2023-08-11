@@ -51,6 +51,8 @@ RUN { \
     mkdir /data && \
     chmod 777 /data && \
     # clean up
+    # delete gosu as it's not used elsewhere
+    rm -rf /usr/local/bin/gosu && \
     apk del dpkg && \
     rm -rf /apk /tmp/* /var/cache/apk/*
 
