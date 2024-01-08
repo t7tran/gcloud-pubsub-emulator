@@ -10,7 +10,7 @@ This image provides a dockerized version of the *Google Cloud Pub/Sub Emulator*.
 The following shell statement show the most simple execution of the provided image. It will execute the *Pub/Sub Emulator* that will listen on port 8538.
 
 ```sh
-docker run --rm --tty --interactive --publish 8538:8538 --name pubsub t7tran/gcloud-pubsub-emulator:380.0.0
+docker run --rm --tty --interactive --publish 8538:8538 --name pubsub t7tran/gcloud-pubsub-emulator:458.0.1
 ```
 
 The image is much more useful when it is used in a CD/CI automated environment. The following example shows how to configure the *Pub/Sub Emulator* to be used in a [*Wercker*](http://www.wercker.com/) development pipeline.
@@ -21,7 +21,7 @@ box: python:3.5
 dev:
   services:
     - name: pubsub
-      id: t7tran/gcloud-pubsub-emulator:380.0.0
+      id: t7tran/gcloud-pubsub-emulator:458.0.1
       cmd: start --host-port 0.0.0.0:8538
 
   steps:
@@ -42,7 +42,7 @@ The most important configuration parameters of the *Pub/Sub emulator* image are 
 The following example shows how to start the *Pub/Sub emulator* to listen on `192.168.1.3:12345` and to store its files in the `/pubsub-data` directory.
 
 ```sh
-docker run --rm --tty --interactive --name pubsub t7tran/gcloud-pubsub-emulator:380.0.0 start --host-port=192.168.1.3:12345 --data-dir=/pubsub-data
+docker run --rm --tty --interactive --name pubsub t7tran/gcloud-pubsub-emulator:458.0.1 start --host-port=192.168.1.3:12345 --data-dir=/pubsub-data
 ```
 
 **NOTE**: Wercker's documentation can be checked online on [Wercker Documentation Website](http://devcenter.wercker.com/docs/home)

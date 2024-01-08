@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  pubsub:
+    image: ghcr.io/t7tran/gcloud-pubsub-emulator:458.0.1
+    environment:
+      PROJECT_ID: local-pubsub
+      TOPICS: >-
+        topic1
+      ACK_DEADLINE: 10
+      SUB_NAMES: >-
+        TOPIC
+      CONFIG_FILE: /etc/bootstrap.yaml
+    volumes:
+      - ./bootstrap.yaml:/etc/bootstrap.yaml:ro
+      - ./rootfs/entrypoint.sh:/entrypoint.sh:ro

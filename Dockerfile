@@ -9,7 +9,8 @@ LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
 ENV PROJECT_ID=project-id \
     TOPICS="topic-1 topic-2 topic-3 topic-4 topic-5 topic-6 topic-7" \
     SUB_NAMES=TOPIC-sub \
-    ACK_DEADLINE=10
+    ACK_DEADLINE=10 \
+    YQ_VERSION=4.40.5
 
 COPY rootfs /
 
@@ -37,11 +38,10 @@ RUN { \
     && \
     gcloud components install beta -q && \
     gcloud components install pubsub-emulator -q && \
-    chmod +x /entrypoint.sh /usr/local/bin/* && \
     apk add --no-cache jq coreutils dpkg && \
     # install gosu
     dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
-    curl -fsSL "https://github.com/tianon/gosu/releases/download/1.16/gosu-$dpkgArch" -o /usr/local/bin/gosu && \
+    curl -fsSL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$dpkgArch" -o /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     gosu nobody true && \
     # complete gosu
@@ -50,6 +50,9 @@ RUN { \
     gosu cloudsdk gcloud config set metrics/environment github_docker_image && \
     mkdir /data && \
     chmod 777 /data && \
+# install yq
+    curl -fsSL https://github.com/mikefarah/yq/releases/download/v$YQ_VERSION/yq_linux_amd64 -o /usr/local/bin/yq && \
+    chmod +x /usr/local/bin/yq && \
     # clean up
     # delete gosu as it's not used elsewhere
     rm -rf /usr/local/bin/gosu && \

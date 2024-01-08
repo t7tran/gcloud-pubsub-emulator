@@ -1,0 +1,7 @@
+topics:
+  topic2:
+    TOPIC-subscription:
+    topic2:
+      pushEndpoint: https://google.com
+      ackDeadline: 60
+  topic3:
