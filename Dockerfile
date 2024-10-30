@@ -1,7 +1,7 @@
 # Google Cloud Pub/Sub Documentation
 # https://cloud.google.com/pubsub/docs/
 
-FROM google/cloud-sdk:458.0.1-alpine
+FROM google/cloud-sdk:499.0.0-alpine
 LABEL maintainer="Cesar Perez <cesar@bigtruedata.com>" \
       version="0.1" \
       description="Google Cloud Pub/Sub Emulator"
@@ -10,7 +10,7 @@ ENV PROJECT_ID=project-id \
     TOPICS="topic-1 topic-2 topic-3 topic-4 topic-5 topic-6 topic-7" \
     SUB_NAMES=TOPIC-sub \
     ACK_DEADLINE=10 \
-    YQ_VERSION=4.40.5
+    YQ_VERSION=4.44.3
 
 COPY rootfs /
 
